@@ -57,7 +57,8 @@ public class StockWidgetRemoteViewsService extends RemoteViewsService {
                             Contract.Quote.COLUMN_HISTORY));
                     views.setTextViewText(R.id.widget_symbol, symbol);
                     views.setTextViewText(R.id.widget_price, price);
-                    views.setTextViewText(R.id.widget_change, absoluteChange);
+                    final String absoluteChangeWithSign = absoluteChange + "$";
+                    views.setTextViewText(R.id.widget_change, absoluteChangeWithSign);
 
                     if (Float.parseFloat(absoluteChange) > 0) {
                         views.setInt(R.id.widget_change, "setBackgroundResource",
