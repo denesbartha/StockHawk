@@ -10,6 +10,8 @@ import android.widget.RemoteViews;
 import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.ui.DetailActivity;
 
+import static com.udacity.stockhawk.sync.QuoteSyncJob.ACTION_DATA_UPDATED;
+
 /**
  * Implementation of App Widget functionality.
  */
@@ -46,6 +48,16 @@ public class StockWidget extends AppWidgetProvider {
 
     @Override
     public void onDisabled(Context context) {
+    }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+        if (ACTION_DATA_UPDATED.equals(intent.getAction())) {
+            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.stock_widget);
+            views.setRemoteAdapter(R.id.widget_list,
+                    new Intent(context, StockWidgetRemoteViewsService.class));
+        }
     }
 }
 
