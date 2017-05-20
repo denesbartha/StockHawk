@@ -6,7 +6,9 @@
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingLeft="16dp"
-    android:paddingRight="16dp">
+    android:paddingRight="16dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp">
 
     <TextView
         android:id="@+id/symbol"
@@ -14,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="start|center_vertical"
-        tools:text="GOOG" />
+        tools:text="@string/goog" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -28,7 +30,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10sp"
-            tools:text="1000.00" />
+            tools:text="@string/thousand"
+            android:layout_gravity="start" />
 
         <TextView
             android:id="@+id/change"
@@ -38,6 +41,9 @@
             android:background="@drawable/percent_change_pill_green"
             android:paddingLeft="3dp"
             android:paddingRight="3dp"
-            tools:text="100%" />
+            android:paddingStart="3dp"
+            android:paddingEnd="3dp"
+            android:layout_gravity="end"
+            tools:text="@string/hundred_percent" />
     </LinearLayout>
 </LinearLayout>

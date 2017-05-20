@@ -1,6 +1,7 @@
 package com.udacity.stockhawk.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -45,7 +46,25 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private StockAdapter adapter;
 
     @Override
-    public void onClick(String symbol) {
+    public void onClick(Cursor cursor) {
+        final String symbol = cursor.getString(cursor.getColumnIndex(
+                Contract.Quote.COLUMN_SYMBOL));
+        final String price = cursor.getString(cursor.getColumnIndex(
+                Contract.Quote.COLUMN_PRICE));
+        final String absoluteChange = cursor.getString(cursor.getColumnIndex(
+                Contract.Quote.COLUMN_ABSOLUTE_CHANGE));
+        final String percentageChange = cursor.getString(cursor.getColumnIndex(
+                Contract.Quote.COLUMN_PERCENTAGE_CHANGE));
+        final String history = cursor.getString(cursor.getColumnIndex(
+                Contract.Quote.COLUMN_HISTORY));
+
+        Intent intent = new Intent(this, DetailActivity.class)
+                .putExtra(Contract.Quote.COLUMN_SYMBOL, symbol)
+                .putExtra(Contract.Quote.COLUMN_PRICE, price)
+                .putExtra(Contract.Quote.COLUMN_ABSOLUTE_CHANGE, absoluteChange)
+                .putExtra(Contract.Quote.COLUMN_PERCENTAGE_CHANGE, percentageChange)
+                .putExtra(Contract.Quote.COLUMN_HISTORY, history);
+        startActivity(intent);
         Timber.d("Symbol clicked: %s", symbol);
     }
 
@@ -161,8 +180,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         if (PrefUtils.getDisplayMode(this)
                 .equals(getString(R.string.pref_display_mode_absolute_key))) {
             item.setIcon(R.drawable.ic_percentage);
+            item.setTitle(getString(R.string.symbol_percentage));
         } else {
             item.setIcon(R.drawable.ic_dollar);
+            item.setTitle(getString(R.string.symbol_dollar));
         }
     }
 
