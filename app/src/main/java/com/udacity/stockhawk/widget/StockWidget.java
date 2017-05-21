@@ -3,6 +3,7 @@ package com.udacity.stockhawk.widget;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
@@ -57,6 +58,10 @@ public class StockWidget extends AppWidgetProvider {
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.stock_widget);
             views.setRemoteAdapter(R.id.widget_list,
                     new Intent(context, StockWidgetRemoteViewsService.class));
+            AppWidgetManager manager = AppWidgetManager.getInstance(context);
+            ComponentName componentName = new ComponentName(context, StockWidget.class);
+            manager.notifyAppWidgetViewDataChanged(
+                    manager.getAppWidgetIds(componentName), R.id.widget_list);
         }
     }
 }
